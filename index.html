@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Caller CRM Ecosystem | Service Tiers</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-body: #0f172a;       /* Slate 900 */
+            --bg-card: #1e293b;       /* Slate 800 */
+            --bg-card-hover: #334155; /* Slate 700 */
+            --text-main: #f8fafc;     /* Slate 50 */
+            --text-muted: #94a3b8;    /* Slate 400 */
+            --accent-gold: #fbbf24;   /* Amber 400 */
+            --accent-blue: #38bdf8;   /* Sky 400 */
+            --border-color: #334155;
+            --alert-bg: rgba(245, 158, 11, 0.1);
+            --alert-border: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .text-center { text-align: center; }
+        .gold-text { color: var(--accent-gold); }
+        .blue-text { color: var(--accent-blue); }
+        .muted { color: var(--text-muted); font-size: 0.95rem; }
+        
+        /* --- HERO SECTION --- */
+        header.hero {
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* --- PRICING CARDS --- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+                align-items: flex-start;
+            }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Enterprise Card Special Styling */
+        .card.enterprise {
+            border: 1px solid var(--accent-gold);
+            background: linear-gradient(180deg, rgba(251, 191, 36, 0.05) 0%, var(--bg-card) 100%);
+            box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.15);
+        }
+
+        .card.basic {
+            border-top: 4px solid var(--accent-blue);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* Lists within cards */
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+
+        .feature-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 0.95rem;
+        }
+
+        .feature-list li strong {
+            color: #fff;
+            margin-right: 4px;
+        }
+
+        /* Icons */
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+        .icon-check path { stroke: var(--accent-blue); }
+        .enterprise .icon-check path { stroke: var(--accent-gold); }
+        .icon-warn path { stroke: #f87171; }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-top: 24px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .limitations {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .limitations li {
+            color: var(--text-muted);
+        }
+
+        /* Enterprise Badge */
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background-color: var(--accent-gold);
+            color: #000;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        /* --- COMPARISON TABLE --- */
+        .comparison-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px; /* Forces scroll on mobile */
+            background-color: var(--bg-card);
+        }
+
+        th, td {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: rgba(0,0,0,0.3);
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            text-align: left;
+            background-color: rgba(56, 189, 248, 0.05); /* Subtle Blue tint */
+        }
+        
+        th:nth-child(3), td:nth-child(3) {
+            text-align: left;
+            background-color: rgba(251, 191, 36, 0.05); /* Subtle Gold tint */
+        }
+
+        tr:last-child td { border-bottom: none; }
+
+        /* Table Icon alignment */
+        .cell-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .table-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .check-icon path { stroke: #22c55e; stroke-width: 2.5; } 
+        .cross-icon line { stroke: #ef4444; stroke-width: 2.5; opacity: 0.7; }
+        
+        /* --- FROZEN STATE FOOTER --- */
+        .frozen-state {
+            background-color: rgba(245, 158, 11, 0.05);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .frozen-state::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background-color: var(--accent-gold);
+        }
+
+        .frozen-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .frozen-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .warning-title {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .frozen-content h4 {
+            color: #fff;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .frozen-content ul {
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+        
+        .footer-note {
+            text-align: center;
+            margin-top: 60px;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HERO -->
+        <header class="hero text-center">
+            <h1>The Land Caller Ecosystem: Plan Comparison</h1>
+            <p>We don't just provide leads; we provide the infrastructure to close them. Use this guide to compare CRM capabilities and Data access privileges between our Pay-Per-Lead (Basic) and Enterprise Partner models.</p>
+        </header>
+
+        <!-- PRICING CARDS -->
+        <section class="pricing-grid">
+            
+            <!-- BASIC PLAN -->
+            <div class="card basic">
+                <div class="card-header">
+                    <h2 class="card-title blue-text">Basic Plan</h2>
+                    <p class="card-subtitle">Pay-Per-Lead Model</p>
+                    <p class="muted" style="margin-top: 10px;">Ideally suited for: Transactional investors needing a streamlined "Digital Kiosk" to work specific batches.</p>
+                </div>
+                
+                <span class="section-label">What You Get</span>
+                <ul class="feature-list">
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Direct Lead Injection:</strong> Our agent team dials your campaign and pushes warm leads instantly to your pipeline.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Visual Pipeline:</strong> Simple drag-and-drop board to track lead stages.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Contact Data:</strong> Full visibility of lead details & property data.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>30-Day Window:</strong> Access active for 30 days starting after the final lead in the order is delivered.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Data Self-Service Dashboard:</strong> Access to pull, skip-trace, and scrub data via a credit system (credits provided based on your tier to match lead flow needs).</span>
+                    </li>
+                </ul>
+
+                <div class="limitations">
+                    <span class="section-label" style="margin-top:0; color: #f87171;">Limitations</span>
+                    <ul class="feature-list" style="margin-top: 10px;">
+                        <li>
+                            <svg class="icon icon-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <span>No Automation Control or editing workflows.</span>
+                        </li>
+                        <li>
+                            <svg class="icon icon-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            <span>Bulk SMS & Email marketing disabled.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <p class="muted" style="margin-top: 20px; font-size: 0.85rem;">
+                    <strong>⚠️ The 30-Day Lifecycle:</strong> This plan acts like a parking meter. Without a new batch or maintenance plan, the account freezes after 30 days.
+                </p>
+            </div>
+
+            <!-- ENTERPRISE PLAN -->
+            <div class="card enterprise">
+                <div class="card-header">
+                    <h2 class="card-title gold-text">Enterprise Plan</h2>
+                    <p class="card-subtitle">Contract Partner Model</p>
+                    <p class="muted" style="margin-top: 10px;">Ideally suited for: Scaling agencies needing a full "Operating System" to nurture leads and manage sales floors.</p>
+                </div>
+
+                <span class="section-label">Everything in Basic, Plus:</span>
+                <ul class="feature-list">
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Full CRM Access:</strong> Unlocked Calendars, Appointments, and Pipeline settings.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Advanced Automations:</strong> Pre-built "Land Nurture" drip campaigns.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Two-Way Comms:</strong> Text and email leads directly from dashboard.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Long-Term Hosting:</strong> Account remains active for contract duration.</span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>Unlimited Data Dashboard:</strong> Full access to research, skip-trace, and pull data anytime. <span style="display:block; font-size: 0.85em; color: var(--text-muted); margin-top: 4px;">*Access wholesale data rates (volume discounts) purchased separately.</span></span>
+                    </li>
+                    <li>
+                        <svg class="icon icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        <span><strong>AI Integrations:</strong> Access to Content & Conversation AI.</span>
+                    </li>
+                </ul>
+
+                <div style="margin-top: 20px; border-top: 1px solid rgba(251, 191, 36, 0.2); padding-top: 15px;">
+                    <span class="section-label" style="color: var(--accent-gold);">Billing & Protocol</span>
+                    <p class="muted" style="font-size: 0.9rem; margin-bottom: 8px;">
+                        • <strong>Included:</strong> Core CRM license covered by bundled monthly fee.<br>
+                        • <strong>Usage-Based:</strong> Phone, SMS, Email, AI billed based on usage.
+                    </p>
+                    <p class="muted" style="font-size: 0.9rem;">
+                        <strong>🔄 Continuation:</strong> Transition to a Maintenance Fee post-contract to retain all data and automations.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- COMPARISON TABLE -->
+        <section class="comparison-section">
+            <h2 class="section-title">Feature Comparison</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Feature</th>
+                            <th style="width: 37.5%; text-align: center;">Basic (Pay-Per-Lead)</th>
+                            <th style="width: 37.5%; text-align: center;">Enterprise (Contract)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Lead Injection</strong></td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Into Land Caller CRM</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Land Caller CRM or External CRM</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Dashboard</strong></td>
+                            <td>
+                                <div class="cell-content">
+                                    <span>Limited (Credit System)</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Unlimited (Wholesale Rates)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pipeline Board</strong></td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Drag-and-Drop</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Full Customization</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CRM Access Duration</strong></td>
+                            <td>30 Days (Resets w/ New Order)</td>
+                            <td>Contract Duration + Renewal</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lead Nurturing</strong></td>
+                            <td>Manual Only</td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Automated Workflows</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Outbound Communication</strong></td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon cross-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    <span>Disabled</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>SMS & Email (Usage Rates Apply)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>User Permissions</strong></td>
+                            <td>View & Move Only</td>
+                            <td>Full Standard Access</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Settings & Config</strong></td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon cross-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                    <span>Locked</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="cell-content">
+                                    <svg class="table-icon check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span>Editable</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- FROZEN STATE FOOTER -->
+        <footer class="frozen-state">
+            <h3 class="warning-title">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                Important Policy: The "Frozen" State
+            </h3>
+            
+            <div class="frozen-grid">
+                <div class="frozen-content">
+                    <p class="muted">To maintain system integrity, accounts are subject to freezing protocols based on activity.</p>
+                    
+                    <h4>When does an account freeze?</h4>
+                    <ul>
+                        <li><strong>Basic Clients:</strong> 31 days after lead delivery (if no new batch is purchased).</li>
+                        <li><strong>Enterprise Clients:</strong> If a contract ends and the Maintenance Fee is unpaid.</li>
+                    </ul>
+                </div>
+                
+                <div class="frozen-content">
+                    <h4>What happens during a Freeze?</h4>
+                    <ol style="padding-left: 20px; color: var(--text-muted);">
+                        <li style="margin-bottom: 5px;"><strong>No Access:</strong> You will be unable to log in to the CRM.</li>
+                        <li style="margin-bottom: 5px;"><strong>Data Archival:</strong> Data is not deleted immediately; it is securely archived.</li>
+                        <li><strong>Reactivation:</strong> Upon payment, data is restored exactly as you left it.</li>
+                    </ol>
+                </div>
+            </div>
+        </footer>
+
+        <div class="footer-note">
+            &copy; Land Caller. Internal Use Only.
+        </div>
+
+    </div>
+
+</body>
+</html>
